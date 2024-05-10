@@ -7,9 +7,7 @@ pipeline {
         DOCKER_IMAGE_NAME = 'deadlyninja/wordpress-fpm-msmtp'
         DOCKERFILE_PATH = './Dockerfile'
     }
-
-    repoinfo = [:]
-    
+   
     stages {
         stage('Checkout') {
             steps {
@@ -28,7 +26,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    repoinfo = readJSON(file:repoinfo_json)
                     docker.withRegistry(env.TARGET_REPO,, env.TARGET_REPO_CREDENTIALS) {
                         docker.image(env.DOCKER_IMAGE_NAME).push('latest')
                     }
