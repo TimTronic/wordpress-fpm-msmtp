@@ -1,6 +1,6 @@
 account default
 domain $MSMTP_DOMAIN
-host $MSMTP_USER
+host $MSMTP_MAILHOST
 port $MSMTP_PORT
 tls on
 tls_starttls on
