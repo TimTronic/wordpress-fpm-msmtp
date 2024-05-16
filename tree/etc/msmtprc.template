@@ -10,4 +10,4 @@ auth $MSMTP_AUTH
 user $MSMTP_USER
 password $MSMTP_PASSWORD
 from $MSMTP_FROM
-logfile /var/log/msmtp.log
+logfile $MSMTP_LOGFILE

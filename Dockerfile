@@ -6,6 +6,7 @@ ENV MSMTP_TLS_CERTCHECK=off
 ENV MSMTP_AUTH=off
 ENV MSMTP_FROM=mailer
 ENV MSMTP_PORT=25
+ENV MSMTP_LOGFILE=/var/log/msmtp.log
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
