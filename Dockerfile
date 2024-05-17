@@ -1,5 +1,6 @@
 FROM wordpress:6-php8.1-fpm
 
+ENV MSMTP_MAILHOST=mailserver
 ENV MSMTP_TLS=off
 ENV MSMTP_STARTTLS=off
 ENV MSMTP_TLS_CERTCHECK=off
@@ -15,3 +16,4 @@ RUN --mount=type=cache,target=/var/cache/apt \
    
 COPY tree/ /
 ENTRYPOINT ["entrypoint-override.sh"]
+CMD ["php-fpm"]
