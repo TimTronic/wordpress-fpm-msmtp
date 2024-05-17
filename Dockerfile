@@ -10,7 +10,8 @@ ENV MSMTP_LOGFILE=/var/log/msmtp.log
 
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
+    DEBIAN_FRONTEND=noninteractive \
     apt-get update && apt-get dist-upgrade -y && apt-get install msmtp rsync gettext-base --no-install-recommends -y
    
 COPY tree/ /
-CMD cmd-override.sh
+ENTRYPOINT ["entrypoint-override.sh"]

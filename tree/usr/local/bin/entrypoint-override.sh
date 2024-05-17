@@ -1,4 +1,4 @@
 #!/bin/bash
 
 envsubst < /etc/msmtprc.template > /etc/msmtprc
-php-fpm
+/usr/local/bin/docker-entrypoint.sh $@
