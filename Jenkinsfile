@@ -10,6 +10,12 @@ pipeline {
 
     triggers {
         pollSCM('H/15 * * * *')
+        // The build is `--pull` and the Dockerfile ends in `apt-get dist-upgrade`, so a
+        // rebuild picks up a new base image and new Debian packages. On pollSCM alone that
+        // only ever happened when someone committed - and in 2026 the upstream
+        // `wordpress:6-php8.4-fpm` tag stopped being rebuilt without anyone noticing, so
+        // the published image sat on a three-month-old PHP. Build nightly regardless.
+        cron('H 3 * * *')
     }
 
     stages {
