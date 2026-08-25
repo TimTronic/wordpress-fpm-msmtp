@@ -1,4 +1,4 @@
-FROM wordpress:6-php8.4-fpm
+FROM wordpress:7-php8.4-fpm
 
 ENV MSMTP_MAILHOST=mailserver
 ENV MSMTP_TLS=off
