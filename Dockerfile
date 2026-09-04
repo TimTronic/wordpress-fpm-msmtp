@@ -28,6 +28,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
 # that image cannot be treated as "the plain one plus CiviCRM".
 RUN sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/' /etc/ImageMagick-*/policy.xml || true
 
+# phpredis: PHP client for a persistent object cache (Redis Object Cache plugin,
+# `object-cache.php` drop-in). Each site still runs its own `redis` service in
+# compose; this only makes the fast C client available so the plugin does not
+# fall back to bundled Predis.
+RUN pecl install redis && docker-php-ext-enable redis
+
 ADD https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar /usr/local/bin/wp
 RUN chmod 775 /usr/local/bin/wp
 
