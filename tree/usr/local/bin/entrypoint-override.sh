@@ -13,4 +13,16 @@ if ls /usr/src/wp-mu-plugins/*.php >/dev/null 2>&1; then
     chown -R www-data:www-data /var/www/html/wp-content/mu-plugins 2>/dev/null || true
 fi
 
+# Redis Object Cache may have been installed or refreshed with WP-CLI while
+# this container was running as root. WordPress's web updater then cannot
+# replace the plugin or its drop-in. Keep this deliberately scoped to Redis;
+# the rest of wp-content belongs to each site and can contain intentional
+# ownership choices.
+if [ -d /var/www/html/wp-content/plugins/redis-cache ]; then
+    chown -R www-data:www-data /var/www/html/wp-content/plugins/redis-cache 2>/dev/null || true
+fi
+if [ -f /var/www/html/wp-content/object-cache.php ]; then
+    chown www-data:www-data /var/www/html/wp-content/object-cache.php 2>/dev/null || true
+fi
+
 /usr/local/bin/docker-entrypoint.sh $@
