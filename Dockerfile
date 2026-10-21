@@ -1,5 +1,10 @@
 FROM wordpress:7-php8.4-fpm
 
+# Require the emergency PHP fixes even while upstream images are still rebuilding.
+COPY update-php-security.sh /usr/local/sbin/update-php-security
+RUN sh /usr/local/sbin/update-php-security 8.4.27 dcf93923b0e38e0d5252b25b796520b5a47761a08b3488b6d0b5d1115764d3f0
+ENV PHP_SECURITY_MIN_VERSION=8.4.27
+
 ENV MSMTP_MAILHOST=mailserver
 ENV MSMTP_TLS=off
 ENV MSMTP_STARTTLS=off
